@@ -41,8 +41,9 @@ public class GetStarted extends ProjectMethods {
 		IferrorSigning();
 		ClickToLogin();
 		Login();
+		Thread.sleep(2000);
 		ScrollDownToView();
-		Thread.sleep(8000);
+		Thread.sleep(10000);
 		//WaitForConfirmpaybtn();
 		ConfirmAndPay();
 		switchframe();

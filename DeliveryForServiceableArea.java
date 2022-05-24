@@ -32,15 +32,19 @@ public class DeliveryForServiceableArea extends ProjectMethods{
 		ScrollDownToView();
 		Thread.sleep(3000);
 		SelectDelivery();
+		//SendKeysUsingJS();
 		EnterServiceablePincode();
+		EnterAddressDetails();
+		Thread.sleep(1000);
+		ScrollDownToView();
+		Thread.sleep(1000);
 		SelectPlan();
 		clickCalendar();
-		SelectDate(23);
+		SelectDate(25);
 		AddTocart();
-		Login();
+		Thread.sleep(2000);
 		ScrollDownToView();
-		Thread.sleep(8000);
-		//WaitForConfirmpaybtn();
+		Thread.sleep(10000);
 		ConfirmAndPay();
 		switchframe();
 		WaitForPayButton();
@@ -56,11 +60,11 @@ public class DeliveryForServiceableArea extends ProjectMethods{
 		WaitForPayment();
 		SwitchToParentWindow();
 		Thread.sleep(4000);
-		Thread.sleep(4000);
 		GoToOrders();		
 		WaitforSubscriptionPage();	
 		Thread.sleep(8000);
 		refreshSubscriptionPage();
+		Thread.sleep(5000);
 		ClickPauseButton();
 		ClickPause();
 	}

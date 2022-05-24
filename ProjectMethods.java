@@ -9,15 +9,16 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class ProjectMethods extends BaseMethods {
 	static String Main;
 	static Actions builder;
-	
 	
 	public void LoadWebUrl() {
 		Driver.get(BaseParameters.URL);
@@ -148,8 +149,67 @@ public class ProjectMethods extends BaseMethods {
 		Xidentifier(BaseParameters.Delivery);
 		click(Element);
 	}
-	public void EnterServiceablePincode() {
+	public void EnterServiceablePincode() throws InterruptedException {
+		builder = new Actions(Driver);
 		sendkeys(Xidentifier(BaseParameters.PincodeField),BaseParameters.ServiceablePincode);
+		Thread.sleep(2000);
+		builder.keyDown(Keys.CONTROL);
+		builder.sendKeys("A");
+		builder.keyUp(Keys.CONTROL);
+	    builder.build().perform();
+	    builder.keyDown(Keys.CONTROL);
+		builder.sendKeys("C");
+		builder.keyUp(Keys.CONTROL);
+	    builder.build().perform();
+	    builder.keyDown(Keys.CONTROL);
+		builder.sendKeys("X");
+		builder.keyUp(Keys.CONTROL);
+	    builder.build().perform();
+	    builder.keyDown(Keys.CONTROL);
+		builder.sendKeys("V");
+		builder.keyUp(Keys.CONTROL);
+	    builder.build().perform();
+		
+	}
+	public void EnterNonServiceablePincode() throws InterruptedException {
+		builder = new Actions(Driver);
+		sendkeys(Xidentifier(BaseParameters.PincodeField),BaseParameters.NonServiceablePincode);
+		Thread.sleep(2000);
+		builder.keyDown(Keys.CONTROL);
+		builder.sendKeys("A");
+		builder.keyUp(Keys.CONTROL);
+	    builder.build().perform();
+	    builder.keyDown(Keys.CONTROL);
+		builder.sendKeys("C");
+		builder.keyUp(Keys.CONTROL);
+	    builder.build().perform();
+	    builder.keyDown(Keys.CONTROL);
+		builder.sendKeys("X");
+		builder.keyUp(Keys.CONTROL);
+	    builder.build().perform();
+	    builder.keyDown(Keys.CONTROL);
+		builder.sendKeys("V");
+		builder.keyUp(Keys.CONTROL);
+	    builder.build().perform();
+	    String Expected = "Unfortunately our services are not available in your area, please give a call to arrange alternate delivery options";
+	    ReadText(Xidentifier(BaseParameters.ReadBodyText));
+	    if(readtext.contains(Expected)) {
+	    	System.out.println("Non serviceable pincode");
+	    }
+	    Assert.assertEquals(readtext.contains(Expected),"Failed Test Case");	
+	}
+	
+	public void EnterAddressDetails() throws InterruptedException {
+		builder  = new Actions(Driver);
+		sendkeys(Xidentifier(BaseParameters.AddressField),"Manikonda");
+		Thread.sleep(2000);
+		
+		sendkeys(Xidentifier(BaseParameters.HouseOrFlatNo),"LH-15");
+		sendkeys(Xidentifier(BaseParameters.AppartmentOrRoad),"LancoHills");
+		sendkeys(Xidentifier(BaseParameters.LandMark),"Manikonda Circle");
+		WebDriverWait wait = new WebDriverWait(Driver, Duration.ofSeconds(8));
+		wait.until(ExpectedConditions.elementToBeClickable(Xidentifier(BaseParameters.ClickEnterAfterEnteringAddress)));
+		click(Xidentifier(BaseParameters.ClickEnterAfterEnteringAddress));
 	}
 	public void SelectPlan() {
 		Xidentifier(BaseParameters.SelectPlan);
@@ -230,20 +290,14 @@ public class ProjectMethods extends BaseMethods {
 	}
 	
 	public  void WaitForConfirmpaybtn(){
-		WebDriverWait wait = new WebDriverWait(Driver, Duration.ofSeconds(8));
-		wait.until(ExpectedConditions.elementToBeClickable(Xidentifier(BaseParameters.ConfirmPayBtn)));
-		while(!(Xidentifier(BaseParameters.ConfirmPayBtn).isEnabled())) {
-			if(Xidentifier(BaseParameters.ConfirmPayBtn).isEnabled()) {
-				System.out.println("Button is enabled");
-			}
-			else {
-				Driver.navigate().refresh();
-			}
-			
-		}
-		click(Xidentifier(BaseParameters.ConfirmPayBtn));		
+	
 	}
 	public void ConfirmAndPay() {
+//		builder = new Actions(Driver);
+//		Point p = Xidentifier(BaseParameters.ConfirmPayBtn).getLocation();
+//		int xcord = p.getX();
+//		int ycord = p.getY();
+//		builder.moveByOffset(xcord, ycord).click().build().perform();
 		click(Xidentifier(BaseParameters.ConfirmPayBtn));
 	}
 	
@@ -296,7 +350,7 @@ public class ProjectMethods extends BaseMethods {
 	
 	public void WaitforSubscriptionPage() {
 		WebDriverWait wait = new WebDriverWait(Driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOf(Xidentifier(BaseParameters.CheckSbscription)));
+		wait.until(ExpectedConditions.visibilityOf(Xidentifier(BaseParameters.PauseButton)));
 		while(!(Xidentifier(BaseParameters.CheckForSubscriptions).isDisplayed())) {
 		if(Xidentifier(BaseParameters.CheckForSubscriptions).isDisplayed()) {
 			System.out.println("Take a look at your Orders");
@@ -332,6 +386,12 @@ public class ProjectMethods extends BaseMethods {
 	
 	public void refreshSubscriptionPage() {
 		Driver.navigate().refresh();
+	}
+	
+	public void SendKeysUsingJS() {
+		Element = Xidentifier(BaseParameters.PincodeField);
+		JavascriptExecutor js = (JavascriptExecutor)Driver;
+		js.executeScript("arguments[0].value='500089';", Element);
 	}
 	
 }
