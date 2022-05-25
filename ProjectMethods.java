@@ -19,6 +19,7 @@ import org.testng.Assert;
 public class ProjectMethods extends BaseMethods {
 	static String Main;
 	static Actions builder;
+	static WebDriverWait wait;
 	
 	public void LoadWebUrl() {
 		Driver.get(BaseParameters.URL);
@@ -123,6 +124,11 @@ public class ProjectMethods extends BaseMethods {
 		Xidentifier(BaseParameters.ClickNext);
 		click(Element);
 	}
+	
+	public void ScrollToElement() {
+		JavascriptExecutor jse =(JavascriptExecutor)Driver;
+		jse.executeScript("arguments[0].scrollIntoView()", Xidentifier(BaseParameters.ConfirmPayBtn));
+	}
 	public void ScrollDownToView() {
 		builder = new Actions(Driver);
 		builder.sendKeys(Keys.PAGE_DOWN).build().perform();
@@ -130,6 +136,10 @@ public class ProjectMethods extends BaseMethods {
 	public void ScrollUpToView() {
 		builder = new Actions(Driver);
 		builder.sendKeys(Keys.PAGE_UP).build().perform();
+	}
+	public void scrollUpToQRCode() {
+		JavascriptExecutor jse =(JavascriptExecutor)Driver;
+		jse.executeScript("arguments[0].scrollIntoView()", Xidentifier(BaseParameters.QRCode));
 	}
 	
 	public void clickCalendar() {
@@ -203,11 +213,11 @@ public class ProjectMethods extends BaseMethods {
 		builder  = new Actions(Driver);
 		sendkeys(Xidentifier(BaseParameters.AddressField),"Manikonda");
 		Thread.sleep(2000);
-		
+		click(Xidentifier(BaseParameters.AddressType));
 		sendkeys(Xidentifier(BaseParameters.HouseOrFlatNo),"LH-15");
 		sendkeys(Xidentifier(BaseParameters.AppartmentOrRoad),"LancoHills");
 		sendkeys(Xidentifier(BaseParameters.LandMark),"Manikonda Circle");
-		WebDriverWait wait = new WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait = new WebDriverWait(Driver, Duration.ofSeconds(8));
 		wait.until(ExpectedConditions.elementToBeClickable(Xidentifier(BaseParameters.ClickEnterAfterEnteringAddress)));
 		click(Xidentifier(BaseParameters.ClickEnterAfterEnteringAddress));
 	}
@@ -293,13 +303,24 @@ public class ProjectMethods extends BaseMethods {
 	
 	}
 	public void ConfirmAndPay() {
+		//Driver.findElement(By.cssSelector(".vl-custom-btn abcd btn btn-primary")).click();
 //		builder = new Actions(Driver);
 //		Point p = Xidentifier(BaseParameters.ConfirmPayBtn).getLocation();
 //		int xcord = p.getX();
 //		int ycord = p.getY();
 //		builder.moveByOffset(xcord, ycord).click().build().perform();
+		ReadText(Xidentifier(BaseParameters.ReadBodyText));
+		while(readtext.contains("Confirm and Pay")) {
+		try {
 		click(Xidentifier(BaseParameters.ConfirmPayBtn));
-	}
+		}
+			catch(Exception ElementClickInterceptedException){
+				System.out.println("exception thrown");
+			}
+		ReadText(Xidentifier(BaseParameters.ReadBodyText));
+		}
+		}
+	
 	
 	public void switchframe() {
 		Switchtoframe(BaseParameters.SwitchToframe);
@@ -316,9 +337,9 @@ public class ProjectMethods extends BaseMethods {
 		click(Xidentifier(BaseParameters.SelectPhonePe)); 
 	}
 	
-	public void WaitForPayButton() {
-		 WebDriverWait wait = new WebDriverWait(Driver, Duration.ofSeconds(30));
-		 wait.until(ExpectedConditions.visibilityOf(Xidentifier(BaseParameters.EmailField)));
+	public void WaitForEmailField() {
+			wait = new WebDriverWait(Driver, Duration.ofSeconds(30));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated( By.xpath(BaseParameters.EmailField)));
 	}
 	
 	public void SwitchToPaymentWindow() {
@@ -333,7 +354,7 @@ public class ProjectMethods extends BaseMethods {
 		
 	}
 	public void WaitForPayment() {
-		WebDriverWait wait = new WebDriverWait(Driver, Duration.ofMinutes(8));
+		wait = new WebDriverWait(Driver, Duration.ofMinutes(8));
 		wait.until(ExpectedConditions.invisibilityOf(Xidentifier(BaseParameters.Visbilitycheck)));
 	}
 
@@ -349,17 +370,9 @@ public class ProjectMethods extends BaseMethods {
 	}
 	
 	public void WaitforSubscriptionPage() {
-		WebDriverWait wait = new WebDriverWait(Driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOf(Xidentifier(BaseParameters.PauseButton)));
-		while(!(Xidentifier(BaseParameters.CheckForSubscriptions).isDisplayed())) {
-		if(Xidentifier(BaseParameters.CheckForSubscriptions).isDisplayed()) {
-			System.out.println("Take a look at your Orders");
-		}
-		else {
+		 wait = new WebDriverWait(Driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//section[@class='vl-bg-1 vl-orders-wrapper']/div[2]/div/div/div[2]/div/div/button")));
 		
-		Driver.navigate().refresh();
-			}
-		}
 	}
 	
 	public void Logout() throws InterruptedException {
@@ -392,8 +405,50 @@ public class ProjectMethods extends BaseMethods {
 		Element = Xidentifier(BaseParameters.PincodeField);
 		JavascriptExecutor js = (JavascriptExecutor)Driver;
 		js.executeScript("arguments[0].value='500089';", Element);
+	} 
+	public void WaitForPhonePeOptionToAppear() {
+		 wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='instrument radio-option ellipsis slotted-radio']")));
 	}
-	
+	public void WaitForPayButtonToAppear() {
+		 wait = new  WebDriverWait(Driver, Duration.ofSeconds(15));
+		 wait.until(ExpectedConditions.elementToBeClickable(By.id("footer-cta")));
+		
+	}
+	public void WaitForFusionVeganToLoad() {
+		wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Fusion Vegan')]")));
+	}
+	public void WaitForMaleToLoad() {
+		wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//img[@src='/static/media/male.8b3d1fd2.svg']")));
+	}
+	public void WaitForShoppingCartToLoad() {
+		wait = new  WebDriverWait(Driver, Duration.ofSeconds(15));
+		 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='cart-summary-wrapper']//div[2]/div/div[2]/div[2]/span")));
+	}
+	public void WaitForConfirmAndPayToAppear() {
+		 wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Confirm and Pay')]")));
+	}
+	public void WaitForFrameToLoad() {
+		 wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//div[@class='razorpay-container']//iframe")));
+	}
+	public void WaitForQRCode() {
+		 wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='showQRButton__1hkk9']")));
+	}
+	public void WaitForPaymentWindowToLoad() {
+		wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@class='instrumentItem no-border-bottom']")));
+		
+	}
+	public void WaitForCalendarToLoad() {
+		wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'10')]")));
+		
+	}
 }
 
 

@@ -48,8 +48,9 @@ public class PauseOrder extends ProjectMethods {
 		//WaitForConfirmpaybtn();
 		ConfirmAndPay();
 		switchframe();
-		WaitForPayButton();
+		WaitForEmailField();
 		EnterEmailAddress("uday.janoos@gmail.com");
+		WaitForPayButtonToAppear();
 		ClickProccedPayment();
 		Thread.sleep(2000);
 		ChoosePhonePe();

@@ -1,5 +1,7 @@
 package MainProject;
 
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -20,7 +22,8 @@ public class DeliveryForServiceableArea extends ProjectMethods{
 		Login();
 		ClickGetStarted();
 		clickFusionVegan();
-		ManageMyWeight();	
+		ManageMyWeight();
+		WaitForMaleToLoad();
 		ClickOnMale();
 		ChooseHeight(5,8);
 		SelectWeight(85);
@@ -30,9 +33,8 @@ public class DeliveryForServiceableArea extends ProjectMethods{
 		ChooseBreakfast();
 		Thread.sleep(1000);
 		ScrollDownToView();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		SelectDelivery();
-		//SendKeysUsingJS();
 		EnterServiceablePincode();
 		EnterAddressDetails();
 		Thread.sleep(1000);
@@ -40,19 +42,18 @@ public class DeliveryForServiceableArea extends ProjectMethods{
 		Thread.sleep(1000);
 		SelectPlan();
 		clickCalendar();
-		SelectDate(25);
+		WaitForCalendarToLoad();
+		SelectDate(31);
 		AddTocart();
-		Thread.sleep(2000);
-		ScrollDownToView();
-		Thread.sleep(10000);
+		ScrollToElement();
 		ConfirmAndPay();
-		switchframe();
-		WaitForPayButton();
+		//switchframe();
+		WaitForFrameToLoad();
 		EnterEmailAddress("uday.janoos@gmail.com");
 		ClickProccedPayment();
-		Thread.sleep(2000);
+		WaitForPhonePeOptionToAppear();
 		ChoosePhonePe();
-		Thread.sleep(8000);
+		WaitForPayButtonToAppear();
 		ClickProccedPayment();
 		SwitchToPaymentWindow();
 		ScrollUpToView();
@@ -62,16 +63,14 @@ public class DeliveryForServiceableArea extends ProjectMethods{
 		Thread.sleep(4000);
 		GoToOrders();		
 		WaitforSubscriptionPage();	
-		Thread.sleep(8000);
 		refreshSubscriptionPage();
-		Thread.sleep(5000);
+		WaitforSubscriptionPage();
 		ClickPauseButton();
 		ClickPause();
 	}
 	
 	@AfterTest()
 	public void EndServiceableTest() throws InterruptedException {
-		WaitforSubscriptionPage();	
 		Logout();
 		closeBrowser();
 	}

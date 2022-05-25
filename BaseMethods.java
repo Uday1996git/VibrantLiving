@@ -167,7 +167,7 @@ public class BaseMethods  {
 	
 	//Implicit Wait
 	public void Implicitwait() {
-		Driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		Driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
 	}
 	

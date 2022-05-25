@@ -41,8 +41,9 @@ public class BaseParameters {
 	public static String SelectPickUp = "//button[contains(text(),'Pickup')]";
 	public static String SelectPlan = "//*[contains(text(),'7 Days Plan')]";
 	public static String AddtocartBtn= "//*[contains(text(),'Add To Cart')]";
+	public static String CheckIfShoppingCartIsLoaaded= "//div[@class='cart-summary-wrapper']//div[2]/div/div[2]/div[2]/span";
 	public static String AlreadyHaveAccount = "//a[@class='vl-hyper-link-txt']";
-	public static String ConfirmPayBtn = "//div[@class='confirm-button-container']/button";
+	public static String ConfirmPayBtn = "//button[contains(text(),'Confirm and Pay')]";
 	public static String EmailField = "//input[@id='email']";
 	public static String ProceedPaymentBtn = "//span[@id='footer-cta']";
 	public static String SelectPhonePe = "//button[@class='instrument radio-option ellipsis slotted-radio']";
@@ -57,10 +58,11 @@ public class BaseParameters {
 	public static String ClickOk= "//button[contains(text(),'Ok')]";
 	public static String SubscriptionButton = "//*[contains(text(),'Subscriptions')]";
 	public static String ServiceablePincode = System.getProperty("ServiceablePincode","500089");
+	public static String AddressType = "//label[contains(text(),'Work')]";
 	public static String AddressField = "//input[@class='bg-transparent border border-dark form-control pac-target-input']";
 	public static String HouseOrFlatNo = "//div[@class='mt-3 mb-2 form-floating']/input";
-	public static String AppartmentOrRoad = "//div[@class='mt-3 vl-address-form']//div[4]/input";
-	public static String LandMark ="//div[@class='mt-3 vl-address-form']//div[5]/input";
+	public static String AppartmentOrRoad = "//input[@name='aline2']";
+	public static String LandMark ="//input[@name='landmark']";
 	public static String ClickEnterAfterEnteringAddress ="//button[@class='btn w-50p vl-go-next-btn']";
 	public static String ErrorPincodeMessage = "//div[@class='card text-dark text-center bg-transparent border-0 disclaimer-info']/h3";
 	public static String NonServiceablePincode = System.getProperty("ServiceablePincode","500089");
