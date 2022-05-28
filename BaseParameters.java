@@ -1,5 +1,5 @@
 package MainProject;
-
+// String parameters which will be used in creating  Project Methods
 public class BaseParameters {
 	public static String Browser = System.getProperty("Browser", "Chrome");
 	public static String URL = System.getProperty("URL", "https://daily.vibrantliving.in/");
@@ -50,7 +50,7 @@ public class BaseParameters {
 	public static String SwitchToframe = "//div[@class='razorpay-container']//iframe";
 	public static String QRCode = "//button[@class='showQRButton__1hkk9']";
 	public static String GotoOrders = "//button[@class='vl-btn-primary w-100 btn btn-primary']";
-	public static String Visbilitycheck = "//*[contains(text(),'Checking payment status…')]";
+	public static String Visbilitycheck = "//*[contains(text(),'Checking payment statusï¿½')]";
 	public static String CheckSbscription = "//p[@class='h5 m-2 page-title']";
 	public static String CheckForSubscriptions = "//div[@class='orders-info-3 w-100p']";
 	public static String PauseButton = "//section[@class='vl-bg-1 vl-orders-wrapper']/div[2]/div/div/div[2]/div/div/button";
