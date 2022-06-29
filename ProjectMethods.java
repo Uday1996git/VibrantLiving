@@ -15,7 +15,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
+// we have all the project methods in this class, Please extend this class to create test cases.
 public class ProjectMethods extends BaseMethods {
 	static String Main;
 	static Actions builder;
