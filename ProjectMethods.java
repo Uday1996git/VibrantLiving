@@ -447,7 +447,18 @@ public class ProjectMethods extends BaseMethods {
 	public void WaitForCalendarToLoad() {
 		wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
 		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'10')]")));
-		
+	}
+	public void WaitForNewLoginToLoad() {
+		wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("phone")));
+	}
+	public void WaitForSiginPopupToLoad() {
+		wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'10')]")));
+	}
+	public void WaitFor7dayPlanToLoad() {
+		wait = new  WebDriverWait(Driver, Duration.ofSeconds(8));
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("btn btn-pickup w-50p")));
 	}
 }
 
